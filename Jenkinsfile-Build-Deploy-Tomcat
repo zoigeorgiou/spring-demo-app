@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
+                git url: 'https://github.com/zoigeorgiou/spring-demo-app', branch: 'main'
             }
         }
         stage('Build') {
