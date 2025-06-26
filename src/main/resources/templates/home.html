@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Startup Product - Homepage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: #f8fafc;
+            color: #222;
+        }
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(60,60,100,0.06);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            height: 64px;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            font-weight: bold;
+            color: #2563eb;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .navbar nav {
+            display: flex;
+            gap: 28px;
+        }
+        .navbar nav a {
+            color: #222;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .navbar nav a:hover {
+            color: #2563eb;
+        }
+        .hero {
+            background: linear-gradient(120deg, #2563eb 60%, #60a5fa 100%);
+            color: #fff;
+            padding: 90px 0 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 32px;
+            color: #e0e7ef;
+        }
+        .hero-img {
+            width: 420px;
+            margin: 40px auto 0 auto;
+            display: block;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60,60,100,0.13);
+        }
+        .cta-btn {
+            background: #fff;
+            color: #2563eb;
+            border: none;
+            border-radius: 24px;
+            padding: 14px 38px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(60,60,100,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        .cta-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            margin: 60px 0 40px 0;
+            flex-wrap: wrap;
+        }
+        .feature {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(60,60,100,0.08);
+            padding: 36px 28px 32px 28px;
+            width: 320px;
+            text-align: center;
+            margin-bottom: 24px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .feature:hover {
+            box-shadow: 0 8px 32px rgba(60,60,100,0.13);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 18px;
+        }
+        .feature h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.18rem;
+            color: #2563eb;
+        }
+        .feature p {
+            color: #555;
+            font-size: 1rem;
+        }
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            margin: 70px 0 60px 0;
+            flex-wrap: wrap;
+        }
+        .about-img {
+            width: 350px;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(60,60,100,0.10);
+        }
+        .about-content {
+            max-width: 420px;
+        }
+        .about-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #2563eb;
+        }
+        .about-content p {
+            color: #555;
+            margin-bottom: 18px;
+        }
+        .team-section {
+            background: #f1f5f9;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+        .team-section h2 {
+            color: #2563eb;
+            font-size: 1.6rem;
+            margin-bottom: 36px;
+        }
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .team-member {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(60,60,100,0.08);
+            padding: 24px 18px 18px 18px;
+            width: 200px;
+            margin-bottom: 24px;
+        }
+        .team-photo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border: 3px solid #2563eb22;
+        }
+        .team-member h4 {
+            margin: 0 0 4px 0;
+            font-size: 1.08rem;
+            color: #2563eb;
+        }
+        .team-member p {
+            margin: 0;
+            color: #555;
+            font-size: 0.98rem;
+        }
+        .footer {
+            background: #22223b;
+            color: #fff;
+            text-align: center;
+            padding: 32px 0 18px 0;
+            font-size: 1rem;
+            margin-top: 60px;
+        }
+        @media (max-width: 1100px) {
+            .features, .about-section, .team-members { flex-direction: column; gap: 28px; align-items: center; }
+            .about-img { width: 90vw; max-width: 350px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">StartupX</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Product</a>
+            <a href="#">Features</a>
+            <a href="#">Team</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Welcome to demo app version <span th:text="${appVersion}"></span></h1>
+            <p>Revolutionizing the way you work with our next-generation software product. Experience seamless collaboration, smart automation, and beautiful design—all in one platform.</p>
+            <button class="cta-btn">Get Started Free</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80" alt="Product Screenshot" class="hero-img" />
+    </div>
+    <div class="features">
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Feature 1" class="feature-icon" />
+            <h3>AI-Powered Insights</h3>
+            <p>Leverage artificial intelligence to gain actionable insights and make smarter decisions, faster.</p>
+        </div>
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Feature 2" class="feature-icon" />
+            <h3>Real-Time Collaboration</h3>
+            <p>Work together with your team in real time, no matter where you are. Share, edit, and comment instantly.</p>
+        </div>
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="Feature 3" class="feature-icon" />
+            <h3>Secure Cloud Storage</h3>
+            <p>Your data is protected with enterprise-grade security and always accessible from any device.</p>
+        </div>
+    </div>
+    <div class="about-section">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="About Product" class="about-img" />
+        <div class="about-content">
+            <h2>About Our Product</h2>
+            <p>StartupX is built for modern teams who value productivity, creativity, and security. Our mission is to empower businesses to achieve more with less effort, using cutting-edge technology and intuitive design.</p>
+            <p>Join hundreds of happy customers who have transformed their workflow with StartupX.</p>
+        </div>
+    </div>
+    <div class="team-section">
+        <h2>Meet the Team</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member 1" class="team-photo" />
+                <h4>Alex Joan</h4>
+                <p>CEO & Co-founder</p>
+            </div>
+            <div class="team-member">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member 2" class="team-photo" />
+                <h4>Maria Lee</h4>
+                <p>CTO & Co-founder</p>
+            </div>
+            <div class="team-member">
+                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Team Member 3" class="team-photo" />
+                <h4>John Harris</h4>
+                <p>Lead Developer</p>
+            </div>
+            <div class="team-member">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member 4" class="team-photo" />
+                <h4>Aleen Valzac</h4>
+                <p>Product Designer</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2025 StartupX. All rights reserved.
+    </div>
+</body>
+</html> 

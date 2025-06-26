@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    tools {
+        maven 'M3'
+        jdk 'jdk17'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sshagent(credentials: ['tomcat-deploy-key']) {
+                    sh '''
+                        scp -o StrictHostKeyChecking=no target/spring-demo-app-1.0.war user1@192.168.15.200:/tmp/
+                        ssh -t -o StrictHostKeyChecking=no user1@192.168.15.200 \
+                            "echo user1 | sudo -S mv /tmp/spring-demo-app-1.0.war /opt/tomcat/webapps/spring-demo-app.war"
+                    '''
+                }
+            }
+        }
+    }
+}

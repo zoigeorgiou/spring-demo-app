@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    environment {
+        BASE_VERSION = "v1.0"
+        DOCKERHUB_CREDS = credentials('dockerhub-creds')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
+            }
+        }
+        stage('Container Build') {
+            steps {
+                script {
+                    // Get first 8 characters of git commit and create the version tag
+                    def commitHash = sh(returnStdout: true, script: 'git rev-parse --short=8 HEAD').trim()
+                    def imageTag = "${BASE_VERSION}-${commitHash}"
+
+                    // Build the docker image
+                    sh "docker build -t spring-demo-app:${imageTag} ."
+                    sh "docker tag spring-demo-app:${imageTag} ioannisgk/spring-demo-app:${imageTag}"
+                    sh 'docker images'
+                }
+            }
+        }
+        stage('Push to Dockerhub') {
+            steps {
+                script {
+                    // Login to dockerhub
+                    sh "echo ${DOCKERHUB_CREDS_PSW} | docker login -u ${DOCKERHUB_CREDS_USR} --password-stdin"
+
+                    // Get commit hash to reconstruct tag
+                    def commitHash = sh(returnStdout: true, script: 'git rev-parse --short=8 HEAD').trim()
+                    def imageTag = "${BASE_VERSION}-${commitHash}"
+                    
+                    // Push to dockerhub
+                    sh "docker push ioannisgk/spring-demo-app:${imageTag}"
+                    
+                    // Cleanup
+                    sh "docker logout"
+                }
+            }
+        }
+    }
+}
