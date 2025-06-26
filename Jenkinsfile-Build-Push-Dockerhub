@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
+                git url: 'https://github.com/zoigeorgiou/spring-demo-app', branch: 'main'
             }
         }
         stage('Container Build') {
@@ -19,7 +19,7 @@ pipeline {
 
                     // Build the docker image
                     sh "docker build -t spring-demo-app:${imageTag} ."
-                    sh "docker tag spring-demo-app:${imageTag} ioannisgk/spring-demo-app:${imageTag}"
+                    sh "docker tag spring-demo-app:${imageTag} zoigeorgiou/spring-demo-app:${imageTag}"
                     sh 'docker images'
                 }
             }
