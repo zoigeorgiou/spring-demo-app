@@ -35,7 +35,7 @@ pipeline {
                     def imageTag = "${BASE_VERSION}-${commitHash}"
                     
                     // Push to dockerhub
-                    sh "docker push ioannisgk/spring-demo-app:${imageTag}"
+                    sh "docker push zoigeorgiou/spring-demo-app:${imageTag}"
                     
                     // Cleanup
                     sh "docker logout"
