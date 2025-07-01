@@ -19,7 +19,7 @@ pipeline {
 
                     // Build the docker image
                     sh "docker build -t spring-demo-app:${imageTag} ."
-                    sh "docker tag spring-demo-app:${imageTag} zoigeorgiou/spring-demo-app:${imageTag}"
+                    sh "docker tag spring-demo-app:${imageTag} georgizo/spring-demo-app:${imageTag}"
                     sh 'docker images'
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
                     def imageTag = "${BASE_VERSION}-${commitHash}"
                     
                     // Push to dockerhub
-                    sh "docker push zoigeorgiou/spring-demo-app:${imageTag}"
+                    sh "docker push georgizo/spring-demo-app:${imageTag}"
                     
                     // Cleanup
                     sh "docker logout"
